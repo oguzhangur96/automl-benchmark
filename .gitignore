@@ -134,6 +134,7 @@ mlruns/
 # Datafiles
 *.csv
 *.tsv
+*.pkl
 
 ### VisualStudioCode ###
 .vscode/*
