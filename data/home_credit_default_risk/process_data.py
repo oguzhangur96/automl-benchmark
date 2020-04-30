@@ -10,35 +10,23 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
 from sklearn.feature_selection import VarianceThreshold
 
 #%%
 # Importing data
 data = pd.read_csv('application_train.csv')
-test = pd.read_csv('application_test.csv')
 prev = pd.read_csv('previous_application.csv')
 buro = pd.read_csv('bureau.csv')
 buro_balance = pd.read_csv('bureau_balance.csv')
 credit_card  = pd.read_csv('credit_card_balance.csv')
 POS_CASH  = pd.read_csv('POS_CASH_balance.csv')
 payments = pd.read_csv('installments_payments.csv')
-lgbm_submission = pd.read_csv('sample_submission.csv')
-
-#Feature engineering
-#data['loan_to_income'] = data.AMT_ANNUITY/data.AMT_INCOME_TOTAL
-#test['loan_to_income'] = test.AMT_ANNUITY/test.AMT_INCOME_TOTAL
 
 #%%
-# One-hot encoding of categorical features in data and test sets
+# One-hot encoding of categorical features in data sets
 categorical_features = [col for col in data.columns if data[col].dtype == 'object']
-
-one_hot_df = pd.concat([data,test])
-one_hot_df = pd.get_dummies(one_hot_df, columns=categorical_features)
-
+one_hot_df = pd.get_dummies(data, columns=categorical_features)
 data = one_hot_df.iloc[:data.shape[0],:]
-test = one_hot_df.iloc[data.shape[0]:,]
 
 #%%
 # Pre-processing buro_balance
@@ -100,37 +88,22 @@ avg_payments3 = payments.groupby('SK_ID_CURR').min()
 del avg_payments['SK_ID_PREV']
 
 #%%
-#Join data bases
+#Join data frames
 data = data.merge(right=avg_prev.reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(right=avg_prev.reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(right=avg_buro.reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(right=avg_buro.reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(POS_CASH.groupby('SK_ID_CURR').mean().reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(POS_CASH.groupby('SK_ID_CURR').mean().reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(credit_card.groupby('SK_ID_CURR').mean().reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(credit_card.groupby('SK_ID_CURR').mean().reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(right=avg_payments.reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(right=avg_payments.reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(right=avg_payments2.reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(right=avg_payments2.reset_index(), how='left', on='SK_ID_CURR')
-
 data = data.merge(right=avg_payments3.reset_index(), how='left', on='SK_ID_CURR')
-test = test.merge(right=avg_payments3.reset_index(), how='left', on='SK_ID_CURR')
 
 #%%
 #Remove features with many missing values
-test = test[test.columns[data.isnull().mean() < 0.85]]
 data = data[data.columns[data.isnull().mean() < 0.85]]
 
 #%%
 #Delete customer Id
 del data['SK_ID_CURR']
-del test['SK_ID_CURR']
 
 #%%
 #Export dataframe to pickle
