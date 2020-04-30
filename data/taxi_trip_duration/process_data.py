@@ -204,4 +204,6 @@ t1 = dt.datetime.now()
 print('Feature extraction time: %i seconds' % (t1 - t0).seconds)
 
 #%%
-train.to_pickle('taxi_trip_duration.pkl', protocol = 4)
+# pandas 0.20.3 does not have a parameter called protocol
+# since pandas 0.20.3 is old, protocol will be lower than 5
+train.to_pickle('taxi_trip_duration.pkl')
