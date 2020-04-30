@@ -204,4 +204,4 @@ t1 = dt.datetime.now()
 print('Feature extraction time: %i seconds' % (t1 - t0).seconds)
 
 #%%
-train.to_pickle('taxi_trip_duration.pkl')
+train.to_pickle('taxi_trip_duration.pkl', protocol = 4)

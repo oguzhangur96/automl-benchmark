@@ -101,4 +101,4 @@ train = train.sort_values('TransactionDT').drop(['TransactionDT', 'TransactionID
 
 #%%
 # Saving dataset as pickle for further use
-train.to_pickle('ieee_fraud_detection.pkl')
+train.to_pickle('ieee_fraud_detection.pkl', protocol = 4)

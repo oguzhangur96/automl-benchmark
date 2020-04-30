@@ -107,4 +107,4 @@ del data['SK_ID_CURR']
 
 #%%
 #Export dataframe to pickle
-data.to_pickle('home_credit_default_risk.pkl')
+data.to_pickle('home_credit_default_risk.pkl', protocol = 4)
