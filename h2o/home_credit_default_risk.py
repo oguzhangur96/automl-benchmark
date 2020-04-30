@@ -14,19 +14,20 @@ import mlflow.h2o
 # Initialize h2o server
 h2o.init(max_mem_size='8G')
 
+mlflow.set_tracking_uri(f'..{os.sep}mlruns')
 experiment_name = 'automl-benchmark'
 try:
     experiment = mlflow.create_experiment(experiment_name)
 except:
     experiment = mlflow.get_experiment_by_name(experiment_name)
 mlflow.set_experiment(experiment_name)
-mlflow.set_tracking_uri(f'..{os.sep}/mlruns')
 
-dataset_name = 'home_credit_Default_risk'
+
+dataset_name = 'home_credit_default_risk'
 data = pd.read_pickle(f'..{os.sep}data{os.sep}{dataset_name}{os.sep}{dataset_name}.pkl')
 
 #%%
-run_time_secs = 1200 
+run_time_secs = 600 
 with mlflow.start_run():
     train_df = h2o.H2OFrame(data)
     # Identify predictors and response
