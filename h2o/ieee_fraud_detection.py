@@ -40,7 +40,7 @@ data = pd.read_pickle(f'..{os.sep}data{os.sep}{dataset_name}{os.sep}{dataset_nam
 run_time_secs = 600
 target_column = 'isFraud'
 for seed in seeds:
-    with mlflow.start_run():
+    with mlflow.start_run(run_name='h2o'):
         # Split data into two parts (train, valid)
         train, valid = train_test_split(data, random_state = seed)
         train_df = h2o.H2OFrame(train)
