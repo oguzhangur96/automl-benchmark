@@ -39,12 +39,6 @@ data = pd.read_pickle(f'..{os.sep}data{os.sep}{dataset_name}{os.sep}{dataset_nam
 # For some reason lightgbm gives error with some column names
 data = data.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
 
-# Create out put directory
-models_dir = 'AutogluonModels'
-random_dir = ''.join(random.choices(string.ascii_uppercase +
-                             string.digits, k = 10))
-output_dir = f'{models_dir}{os.sep}{random_dir}'
-os.mkdir(output_dir)
 #%%
 run_time_secs = 600
 target_column = 'isFraud'
@@ -53,6 +47,12 @@ target_column = 'isFraud'
 hyper_parameters = {'NN':{},'GBM':{},'CAT':{},'LR':{} }
 for seed in seeds:
     with mlflow.start_run(run_name='autogluon'):
+        # Create output directory for auto gluon
+        models_dir = 'AutogluonModels'
+        random_dir = ''.join(random.choices(string.ascii_uppercase +
+                             string.digits, k = 12))
+        output_dir = f'{models_dir}{os.sep}{random_dir}'
+        os.mkdir(output_dir)
         # Split data into two parts (train, valid)
         train, valid = train_test_split(data, random_state = seed)
         predictor = task.fit(train_data=train, 
