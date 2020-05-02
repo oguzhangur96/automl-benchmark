@@ -147,3 +147,8 @@ mlruns/
 # Ignore all local history of files
 .history
 .vscode/
+
+### AutoGluon
+AutogluonModels/
+catboost_info/
+dask-worker-space/
