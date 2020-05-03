@@ -15,7 +15,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_log_error
 from autogluon import TabularPrediction as task
 import mlflow
-import mlflow.gluon
 from sklearn.metrics import mean_squared_error
 from autogluon.utils.tabular.metrics import make_scorer
 

@@ -13,7 +13,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 from autogluon import TabularPrediction as task
 import mlflow
-import mlflow.gluon
 
 # %%
 # Initialize mlflow experiment
