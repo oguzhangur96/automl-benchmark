@@ -1,6 +1,6 @@
-name: taxi
+# Tested on Windows 10 version 1909 (OS Build 18363.778)
+name: ieee
 channels:
-  - conda-forge
   - anaconda
   - defaults
 dependencies:
@@ -14,7 +14,6 @@ dependencies:
   - decorator=4.4.2
   - defusedxml=0.6.0
   - entrypoints=0.3
-  - haversine=2.2.0
   - icc_rt=2019.0.0
   - icu=58.2
   - importlib_metadata=1.5.0
@@ -41,7 +40,7 @@ dependencies:
   - m2w64-libwinpthread-git=5.0.0.4634.697f757
   - markupsafe=1.1.1
   - mistune=0.8.4
-  - mkl=2020.0
+  - mkl=2019.4
   - mkl-service=2.3.0
   - mkl_fft=1.0.15
   - mkl_random=1.1.0
@@ -52,7 +51,7 @@ dependencies:
   - numpy=1.18.1
   - numpy-base=1.18.1
   - openssl=1.1.1g
-  - pandas=0.20.3
+  - pandas=1.0.3
   - pandoc=2.2.3.2
   - pandocfilters=1.4.2
   - parso=0.6.2
@@ -64,9 +63,8 @@ dependencies:
   - pygments=2.6.1
   - pyqt=5.9.2
   - pyrsistent=0.16.0
-  - python=3.6.10
+  - python=3.8.2
   - python-dateutil=2.8.1
-  - python_abi=3.6
   - pytz=2019.3
   - pywin32=227
   - pywinpty=0.5.7
@@ -96,3 +94,4 @@ dependencies:
   - zeromq=4.3.1
   - zipp=2.2.0
   - zlib=1.2.11
+
